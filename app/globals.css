@@ -1,82 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 270 50% 40%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 270 50% 40%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 270 50% 40%;
-    --radius: 0.5rem;
-  }
+    --background: 0 0% 2%;
+    --foreground: 0 5% 85%;
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 270 50% 60%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 5% 85%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 5% 85%;
+
+    --primary: 0 85% 48%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 270 50% 60%;
+
+    --secondary: 0 10% 8%;
+    --secondary-foreground: 0 5% 85%;
+
+    --muted: 0 5% 10%;
+    --muted-foreground: 0 0% 68%;
+
+    --accent: 15 90% 50%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+
+    --destructive: 0 80% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 270 50% 60%;
+
+    --border: 0 60% 18%;
+    --input: 0 10% 10%;
+    --ring: 0 85% 48%;
+
+    --radius: 0px;
+
+    --tron-red: 0 85% 48%;
+    --tron-red-glow: 0 90% 55%;
+    --tron-crimson: 350 80% 40%;
+    --tron-orange: 15 90% 50%;
+    --tron-dark: 0 0% 2%;
+
+    --sidebar-background: 0 0% 2%;
+    --sidebar-foreground: 0 5% 85%;
+    --sidebar-primary: 0 85% 48%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 10% 8%;
+    --sidebar-accent-foreground: 0 5% 85%;
+    --sidebar-border: 0 60% 18%;
+    --sidebar-ring: 0 85% 48%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    cursor: none;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  ::selection {
+    background: hsl(0 85% 48% / 0.4);
   }
 }
 
-.gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-600;
-}
+@layer components {
+  /* Scanline Overlay */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9990;
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%, 
+      rgba(0, 0, 0, 0.35) 50%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.03),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.03)
+    );
+    background-size: 100% 3px, 6px 100%;
+    opacity: 0.7;
+  }
 
-.gradient-border {
-  position: relative;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
+  /* Blinking Terminal Cursor */
+  .terminal-cursor {
+    display: inline-block;
+    color: hsl(0 85% 48%);
+    font-weight: 700;
+    animation: blink-cursor 1s steps(2, start) infinite;
+    text-shadow: 0 0 8px hsl(0 85% 48% / 0.8);
+    margin-left: 0.2rem;
+  }
 
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 2px;
-  background: linear-gradient(to right, #a78bfa, #818cf8);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  @keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Cyberpunk Project Card */
+  .cyber-card {
+    background: hsl(0 0% 3% / 0.9);
+    border: 1px solid hsl(0 60% 18%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, box-shadow;
+  }
+
+  .cyber-card:hover {
+    transform: translateY(-6px);
+    border-color: hsl(0 85% 48% / 0.7);
+    box-shadow: 
+      0 10px 30px -10px hsl(0 85% 48% / 0.3),
+      0 0 20px 0 hsl(0 85% 48% / 0.2),
+      inset 0 0 15px hsl(0 85% 48% / 0.05);
+  }
+
+  /* Accessible High-Contrast Paragraphs */
+  .text-terminal-muted {
+    color: #a3a3a3;
+    line-height: 1.65;
+  }
+
+  .text-terminal-body {
+    color: #d4d4d4;
+    line-height: 1.7;
+  }
+
+  .text-glow-red {
+    color: hsl(0 85% 48%);
+    text-shadow: 0 0 7px hsl(0 85% 48% / 0.6), 0 0 30px hsl(0 85% 48% / 0.3), 0 0 80px hsl(0 85% 48% / 0.15);
+  }
+
+  .text-glow-orange {
+    color: hsl(15 90% 50%);
+    text-shadow: 0 0 7px hsl(15 90% 50% / 0.5), 0 0 30px hsl(15 90% 50% / 0.2);
+  }
+
+  .text-gradient-ares {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(0 85% 48%), hsl(15 90% 50%), hsl(0 90% 55%));
+  }
+
+  .box-glow-red {
+    box-shadow: 0 0 10px hsl(0 85% 48% / 0.2), 0 0 40px hsl(0 85% 48% / 0.08), inset 0 0 10px hsl(0 85% 48% / 0.03);
+  }
+
+  .box-glow-red-strong {
+    box-shadow: 0 0 15px hsl(0 85% 48% / 0.4), 0 0 60px hsl(0 85% 48% / 0.15), inset 0 0 20px hsl(0 85% 48% / 0.05);
+  }
+
+  .tron-border {
+    border: 1px solid hsl(0 85% 48% / 0.25);
+    box-shadow: 0 0 8px hsl(0 85% 48% / 0.1), inset 0 0 8px hsl(0 85% 48% / 0.02);
+  }
+
+  .tron-border-orange {
+    border: 1px solid hsl(15 90% 50% / 0.2);
+    box-shadow: 0 0 6px hsl(15 90% 50% / 0.08);
+  }
+
+  .hover-lift {
+    @apply transition-all duration-500 ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 25px hsl(0 85% 48% / 0.3), 0 0 60px hsl(0 85% 48% / 0.1);
+  }
+
+  .line-reveal {
+    @apply relative overflow-hidden;
+  }
+  .line-reveal::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px;
+    background: hsl(0 85% 48%);
+    box-shadow: 0 0 6px hsl(0 85% 48% / 0.5);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .line-reveal:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }

@@ -1,0 +1,9 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="6" fill="#050505" />
+  <rect x="0.5" y="0.5" width="31" height="31" rx="5.5" stroke="#e61919" stroke-opacity="0.6" stroke-width="1" />
+  <!-- Corner accents -->
+  <path d="M2 7V2H7" stroke="#ff5500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30 25V30H25" stroke="#ff5500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- FD text with cyberpunk glow -->
+  <text x="16" y="21" font-family="'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle" fill="#e61919" letter-spacing="1">FD</text>
+</svg>
